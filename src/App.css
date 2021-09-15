@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  position: relative;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -7,32 +9,74 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html,
+body {
+  top: 0;
+  margin: 0;
+  width: auto;
+  display: flex;
+  min-height: 100%;
+  font-family: "Montserrat", sans-serif;
+  flex-direction: column;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+tbody {
+  display: table-row-group;
+}
+
+
+.content {
+  min-height: 100%;
+  padding-bottom: 9rem
+}
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+} 
+
+
+nav {
+  min-height: 7vh;
+}
+
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+.navbar-brand {
   display: flex;
+  align-items: center;
+}
+
+
+#buttons-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style-type: none;
+}
+
+#navbarCollapse {
   flex-direction: column;
+}
+
+.navbar-nav {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+a {
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h4, h5{
+  font-weight: 800;
+}
+
+@media screen and (max-width: 500px) {  
+  #buttons-container {
+    flex-direction: column;
+  }  
 }

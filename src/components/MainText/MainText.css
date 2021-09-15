@@ -1,0 +1,53 @@
+#mainText {
+  display: flex;
+  flex-direction: column;
+}
+
+#mainTextList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.shortest-path {
+  height: 25px;
+  width: 25px;
+  background-color: #FFCC18;
+}
+
+.visited {
+  height: 25px;
+  width: 25px;
+  background-color:#5ABD5E;
+}
+
+.visited2 {
+  height: 25px;
+  width: 25px;
+  background-color: rgba(217, 17, 187, 0.75);
+}
+
+.wall {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(12, 53, 71);
+}
+
+.unvisited {
+  height: 25px;
+  width: 25px;
+  background-color: #ffffff;
+  border: 3px solid rgb(175, 216, 248);
+}
+
+.fa-flag-checkered {
+  height: 25px;
+  width: 25px;
+}
+
+.h-5 {
+  height: 25px;
+  width: 25px;
+}

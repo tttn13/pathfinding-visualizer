@@ -1,0 +1,23 @@
+.grid-container {
+  margin: 1rem;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.grid {
+  white-space: pre;
+}
+
+button {
+  margin: 2px;
+}
+
+.btn-success  {
+  background-color:#586ACF !important ;
+}
+
+.btn-danger {
+  background-color:#FC584C !important ;
+}
+
