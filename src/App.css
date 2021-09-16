@@ -75,6 +75,10 @@ h4, h5{
   font-weight: 800;
 }
 
+#tutorialBtn {
+  box-shadow: none !important;
+}
+
 @media screen and (max-width: 500px) {  
   #buttons-container {
     flex-direction: column;

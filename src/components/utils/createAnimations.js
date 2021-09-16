@@ -64,7 +64,10 @@ export const animateShortestPath = (nodesInShortestPathOrder) => {
         const nodeClassName = document.getElementById(
           `node-${node.row}-${node.col}`
         ).className;
-        if (nodeClassName !== "node start" && nodeClassName !== "node finish") {
+        if (nodeClassName !== "node start" 
+        && nodeClassName !== "node finish"
+        && nodeClassName !== "node wall"
+        ) {
           document.getElementById(`node-${node.row}-${node.col}`).className =
             "node shortest-path";
         }
@@ -82,5 +85,6 @@ const getNodesInShortestPathOrder = (finishNode) => {
     nodesInShortestPath.unshift(currentNode);
     currentNode = currentNode.previousNode;
   }
+  console.log("nodesInShortestPath",nodesInShortestPath)
   return nodesInShortestPath;
 };

@@ -59,6 +59,7 @@ const PathFinder = () => {
           <li className="m-2">
             <button
               className="btn btn-outline-secondary text-dark"
+              id="tutorialBtn"
               data-bs-toggle="modal"
               data-bs-target="#modalToggle0"
             >
