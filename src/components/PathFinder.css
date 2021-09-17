@@ -9,6 +9,10 @@
   white-space: pre;
 }
 
+#container {
+  display: grid;
+}
+
 button {
   margin: 2px;
 }

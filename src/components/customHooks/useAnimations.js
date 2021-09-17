@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect } from "react";
-import { changeRunningToggle } from "../../redux/actions/gridActions";
+import { changeRunningToggle, getGrid } from "../../redux/actions/gridActions";
 import {
   selectRunning,
   selectAlgo,
@@ -12,7 +12,7 @@ import {
   selectFinishNodeRow,
   selectFinishNodeCol,
 } from "../../redux/actions/selectors";
-import { clearPath } from "../utils/boardControls";
+import { clearPath, resetGrid } from "../utils/boardControls";
 import { visualize } from "../utils/createAnimations";
 
 export const useAnimations = () => {
@@ -26,9 +26,12 @@ export const useAnimations = () => {
   const START_NODE_COL = useSelector(selectStartNodeCol);
   const FINISH_NODE_ROW = useSelector(selectFinishNodeRow);
   const FINISH_NODE_COL = useSelector(selectFinishNodeCol);
+
   const handlePlayBtn = useCallback(() => {
     if (!isRunning) {
       clearPath();
+      // resetGrid()
+      // dispatch(getGrid({grid: resetGrid()}))
       dispatch(changeRunningToggle());
     }
   }, [dispatch]);

@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import FlagSVG from "./../assets/images/FlagSVG";
 import AlgoMenu from "./AlgoMenu";
 import SpeedMenu from "./SpeedMenu";
@@ -9,19 +9,23 @@ import {
   selectSpeed,
   selectSpeedOptions,
 } from "../redux/actions/selectors";
-import { clearPath, clearWalls } from "./utils/boardControls";
+import { clearPath, resetGrid, clearWalls } from "./utils/boardControls";
+import { getGrid } from "../redux/actions/gridActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useAnimations } from './customHooks/useAnimations'
 import { useMaze } from './customHooks/useMaze';
+import { useReset } from "./customHooks/useReset"
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const currentAlgo = useSelector(selectAlgo);
   const algoOptions = useSelector(selectAlgoOptions);
   const speed = useSelector(selectSpeed);
   const speedOptions = useSelector(selectSpeedOptions);
   const handlePlayBtn = useAnimations();
   const { mazeBtnIsClicked, setMazeBtn } = useMaze();
+  const { clearBtn, setClearBtn } = useReset()
 
   return (
     <nav
@@ -95,7 +99,10 @@ const NavBar = () => {
             <button
               type="button"
               className="btn btn-danger"
-              onClick={() => clearPath()}
+              onClick={() => 
+                clearPath()
+                // setClearBtn(true)
+              }
             >
               Clear Path
             </button>

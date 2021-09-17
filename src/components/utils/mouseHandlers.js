@@ -5,7 +5,7 @@ import {
   generateGrid,
   getState,
 } from "./gridUtils";
-import { clearPath, isGridClear } from "./boardControls";
+import { clearPath, isGridClear, resetGrid } from "./boardControls";
 import {
   handleMouseUp,
   mouseUpAtStartNode,
@@ -80,6 +80,7 @@ export const handleMouseDownEvent = (row, col) => {
       }
     }
   } else {
+    // generateGrid(resetGrid()); 
     generateGrid(clearPath());
   }
 };

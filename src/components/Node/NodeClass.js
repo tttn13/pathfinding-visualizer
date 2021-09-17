@@ -1,5 +1,7 @@
 export const NodeClass = (row, col, startNodeRow, startNodeCol, finishNodeRow, finishNodeCol ) => {
-    return {
+  const nodeID = (row.toString() + col.toString())
+  return {
+      id: (nodeID),
       row,
       col,
       isStart: row === startNodeRow && col === startNodeCol,
@@ -10,6 +12,7 @@ export const NodeClass = (row, col, startNodeRow, startNodeCol, finishNodeRow, f
         Math.abs(finishNodeRow - row) + Math.abs(finishNodeCol - col),
       isVisited: false,
       isWall: false,
+      isShortest: false,
       previousNode: null,
       isNode: true,
     };

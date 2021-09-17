@@ -1,5 +1,5 @@
 import {
-    GET_GRID,
+    GET_GRID,GRID_WITH_WALLS,
     SET_TOGGLE_RUNNING,
     CHANGE_ALGO,
     CHANGE_SPEED,
@@ -26,6 +26,10 @@ export const getGrid = ({ grid }) => ({
     }
 })
 
+export const gridwithwalls = () => ({
+    type: GRID_WITH_WALLS,
+    
+})
 export const handleMouseUp = () => ({
     type: HANDLE_MOUSE_UP
 })

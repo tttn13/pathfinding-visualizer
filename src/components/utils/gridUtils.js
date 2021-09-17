@@ -40,8 +40,7 @@ export const getRowCounts = () => {
 };
 
 export const getInitialGrid = (rowCount, colCount) => {
-  const { startNodeRow, startNodeCol, finishNodeRow, finishNodeCol } =
-    getStartAndFinishNodes();
+  const { startNodeRow, startNodeCol, finishNodeRow, finishNodeCol } = getStartAndFinishNodes();
   let initialGrid = [];
   for (let row = 0; row < rowCount; row++) {
     const currentRow = [];
@@ -59,6 +58,7 @@ export const getInitialGrid = (rowCount, colCount) => {
     }
     initialGrid.push(currentRow);
   }
+  console.log("getInitialGrid")
   return initialGrid;
 };
 
@@ -98,5 +98,6 @@ export const generateMobileView = () => {
         "Start & Finish Nodes Must Be within 10 Rows x 20 Columns for Mobile View "
       )
     : (newGrid = getInitialGrid(MOBILE_ROW_COUNT, MOBILE_COLUMN_COUNT));
+  console.log("mobile view")
   return newGrid;
 };

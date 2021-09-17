@@ -12,24 +12,28 @@ import {
   selectRowCount,
   selectColCount,
   selectAlgo,
-  selectAlgoOptions,
+  selectAlgoOptions,selectGrid
 } from "../redux/actions/selectors";
 import { AlgoExplained } from "./AlgoExplained";
 
 const PathFinder = () => {
   const dispatch = useDispatch();
-  const rowCount = useSelector(selectRowCount);
-  const colCount = useSelector(selectColCount);
+  const grid = useSelector(selectGrid);
+  // const rowCount = useSelector(selectRowCount);
+  // const colCount = useSelector(selectColCount);
+  const rowCount = 25
+  const colCount = 35
   const currentAlgo = useSelector(selectAlgo);
   const algoOptions = useSelector(selectAlgoOptions);
   const { dekstopView, handleToggle } = useToggleView();
-
+  
+  let initGrid = getInitialGrid(rowCount, colCount);
   useEffect(() => {
-    //component did mount
-    let initGrid = getInitialGrid(rowCount, colCount);
     dispatch(getGrid({ grid: initGrid }));
-    document.querySelector('[data-bs-target="#modalToggle0"]').click();
+    // document.querySelector('[data-bs-target="#modalToggle0"]').click();
+
   }, []);
+  console.log("refresh grid", grid)
 
   return (
     <div className="content">

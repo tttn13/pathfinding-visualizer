@@ -5,7 +5,6 @@ function App() {
   return (
     <div className="App">
       <PathFinder />
-   
       <Footer />
     </div>
   );

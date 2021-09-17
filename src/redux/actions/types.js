@@ -1,4 +1,5 @@
 export const GET_GRID = 'GET_GRID'
+export const GRID_WITH_WALLS = 'GRID_WITH_WALLS'
 export const SET_TOGGLE_RUNNING = 'SET_TOGGLE_RUNNING'
 export const TOGGLE_VIEW = 'TOGGLE_VIEW'
 export const CHANGE_ALGO = 'CHANGE_ALGO'
