@@ -12,8 +12,8 @@ import {
   selectFinishNodeRow,
   selectFinishNodeCol,
 } from "../../redux/actions/selectors";
-import { clearPath, resetGrid } from "../utils/boardControls";
-import { visualize } from "../utils/createAnimations";
+import { resetGrid } from "../utils/boardControls";
+import { startApp } from "../utils/createAnimations";
 
 export const useAnimations = () => {
   const dispatch = useDispatch();
@@ -27,11 +27,10 @@ export const useAnimations = () => {
   const FINISH_NODE_ROW = useSelector(selectFinishNodeRow);
   const FINISH_NODE_COL = useSelector(selectFinishNodeCol);
 
-  const handlePlayBtn = useCallback(() => {
+  const handlePlayBtn = useCallback((grid) => {
     if (!isRunning) {
-      clearPath();
-      // resetGrid()
-      // dispatch(getGrid({grid: resetGrid()}))
+      const emptyGrid = resetGrid(grid)
+      dispatch(getGrid({grid: emptyGrid }))
       dispatch(changeRunningToggle());
     }
   }, [dispatch]);
@@ -41,7 +40,8 @@ export const useAnimations = () => {
       const startNode = grid[START_NODE_ROW][START_NODE_COL];
       const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
       const algorithm = algoOptions.find((algo) => algo.id === currentAlgo);
-      visualize(grid, startNode, finishNode, algorithm, speed);
+      const gridClone = [...grid]
+      startApp(gridClone, algorithm, startNode, finishNode, speed);
     }
   }, [isRunning]);
 

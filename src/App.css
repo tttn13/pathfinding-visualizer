@@ -24,18 +24,16 @@ tbody {
   display: table-row-group;
 }
 
-
 .content {
   min-height: 100%;
-  padding-bottom: 9rem
+  padding-bottom: 9rem;
 }
 
 footer {
   position: absolute;
   bottom: 0px;
   width: 100%;
-} 
-
+}
 
 nav {
   min-height: 7vh;
@@ -48,7 +46,6 @@ nav {
   display: flex;
   align-items: center;
 }
-
 
 #buttons-container {
   display: flex;
@@ -71,7 +68,8 @@ a {
   text-decoration: none;
 }
 
-h4, h5{
+h4,
+h5 {
   font-weight: 800;
 }
 
@@ -79,8 +77,8 @@ h4, h5{
   box-shadow: none !important;
 }
 
-@media screen and (max-width: 500px) {  
+@media screen and (max-width: 500px) {
   #buttons-container {
     flex-direction: column;
-  }  
+  }
 }

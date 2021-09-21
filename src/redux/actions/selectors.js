@@ -7,15 +7,6 @@ export const selectStartNodeRow = (state) => state.grid.START_NODE_ROW;
 export const selectStartNodeCol = (state) => state.grid.START_NODE_COL
 export const selectFinishNodeRow = (state) => state.grid.FINISH_NODE_ROW
 export const selectFinishNodeCol = (state) => state.grid.FINISH_NODE_COL
-export const selectStartNode = (state) => state.grid.isStartNode
-export const selectFinishNode = (state) => state.grid.isFinishNode
-export const selectWallNode = (state) => state.grid.isWallNode
 export const selectRunning = (state) => state.grid.isRunning
-export const selectDesktopView = (state) => state.grid.isDesktopView
-export const selectMouseIsPressed = (state) => state.grid.mouseIsPressed;
 export const selectRowCount = (state) => state.grid.ROW_COUNT;
 export const selectColCount = (state) => state.grid.COLUMN_COUNT;
-export const selectCurrRow = (state) => state.grid.currRow;
-export const selectCurrCol = (state) => state.grid.currCol;
-export const selectMobileRc = (state) => state.grid.MOBILE_ROW_COUNT;
-export const selectMobileCc = (state) => state.grid.MOBILE_COLUMN_COUNT;

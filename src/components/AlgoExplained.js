@@ -1,8 +1,7 @@
-import React from 'react'
 
 export const AlgoExplained = ({ currentAlgo, algoOptions }) => {
     const findAlgoName = () => {
-        if (currentAlgo === null) return "not selected"
+        if (currentAlgo === null) return "Not Selected"
         else return algoOptions.find((algo) => algo.id === currentAlgo).type;
     }
     const findAlgo = () => {
@@ -15,7 +14,7 @@ export const AlgoExplained = ({ currentAlgo, algoOptions }) => {
         return url;
     }
     return (
-        <a href={findAlgo()} target="_blank" rel="noopener noreferrer" className="link-success">
+        <a href={findAlgo()} target="_blank" rel="noopener noreferrer" className="link-danger">
             {findAlgoName()}
         </a>
     )

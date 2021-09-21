@@ -3,88 +3,90 @@ import { dijkstra } from "../../algorithms/WeightedAlgorithms/dijkstra";
 import { dfs } from "../../algorithms/UnweightedAlgorithms/dfs";
 import { bfs } from "../../algorithms/UnweightedAlgorithms/bfs";
 import { toggleRunning } from "./gridUtils";
+import store from "../../redux/store";
+import {getState} from "./gridUtils";
+import { changeNodeColorAsync } from '../../redux/actions/asyncActions'
 
-/******************** Create Animations ********************/
 
-export const visualize = (grid, startNode, finishNode, algorithm, speed) => {
+export const startApp = async (grid, algorithm, startNode, finishNode, speed) => {
+  const nodesInOrder = generateNodesPath(grid, algorithm, startNode, finishNode)
+  await animateNodesPath(nodesInOrder, finishNode, speed)
+}
+
+export const generateNodesPath = (grid, algorithm, startNode, finishNode) => {
   let visitedNodesInOrder;
-  switch (algorithm.type) {
-    case "Dijkstra":
+  if (algorithm.type === "Dijkstra") {
       visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
-      break;
-    case "A*":
+  }
+  if (algorithm.type === "A*") {
       visitedNodesInOrder = AStar(grid, startNode, finishNode);
-      break;
-    case "Breadth First Search":
+  }
+  if (algorithm.type === "Breadth First Search") {
       visitedNodesInOrder = bfs(grid, startNode, finishNode);
-      break;
-    case "Depth First Search":
+  }
+  if (algorithm.type === "Depth First Search") {
       visitedNodesInOrder = dfs(grid, startNode, finishNode);
-      break;
-    default:
-      break;
-  }
-  const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
-  nodesInShortestPathOrder.push("end");
-  animate(visitedNodesInOrder, nodesInShortestPathOrder, speed);
-};
+  }  
+  return visitedNodesInOrder;
+}
 
-export const animate = (visitedNodesInOrder, nodesInShortestPathOrder, speed) => {
-  for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-    if (i === visitedNodesInOrder.length) {
-      setTimeout(() => {
-        animateShortestPath(nodesInShortestPathOrder);
-      }, speed * i);
-      return;
+const  animateNodesPath = async (visitedNodesInOrder, finishNode, speed) => {
+  for (let i = 0; i < visitedNodesInOrder.length; i++) {
+    let currentNode = visitedNodesInOrder[i]
+    if (!(currentNode.isStart || currentNode.isFinish || currentNode.isWall)) {
+      currentNode.isVisited = true;
+      store.dispatch(changeNodeColorAsync(currentNode, getNodeColor("VISITED") ))
     }
-    setTimeout(() => {
-      const node = visitedNodesInOrder[i];
-      let nodeClassName = document.getElementById(
-        `node-${node.row}-${node.col}`
-      ).className;
-      if (nodeClassName !== "node start" && nodeClassName !== "node finish") {
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          "node visited";
-      }
-    }, speed * i);
+    await pause(speed )
   }
-};
+  await pause(100 * speed )
+  finishSearching(finishNode)
+}
 
-/******************** Create path from start to finish ********************/
+const finishSearching = async (finishNode) => {
+  const nodesInShortestPath = await getNodesInShortestPathOrder(finishNode);
+  await animateShortestPath(nodesInShortestPath)
+}
 
-export const animateShortestPath = (nodesInShortestPathOrder) => {
-  for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
-    if (nodesInShortestPathOrder[i] === "end") {
-      setTimeout(() => {
-        toggleRunning();
-      }, 50 * i);
-    } else {
-      setTimeout(() => {
-        const node = nodesInShortestPathOrder[i];
-        const nodeClassName = document.getElementById(
-          `node-${node.row}-${node.col}`
-        ).className;
-        if (nodeClassName !== "node start" 
-        && nodeClassName !== "node finish"
-        && nodeClassName !== "node wall"
-        ) {
-          document.getElementById(`node-${node.row}-${node.col}`).className =
-            "node shortest-path";
-        }
-      }, 40 * i);
-    }
-  }
-};
 
 // Backtracks from the finishNode to find the shortest path.
 // Only works when called after the pathfinding methods.
-const getNodesInShortestPathOrder = (finishNode) => {
+const getNodesInShortestPathOrder = async (finishNode) => {
   const nodesInShortestPath = [];
   let currentNode = finishNode;
-  while (currentNode !== null) {
+  while (currentNode !== null ) {
     nodesInShortestPath.unshift(currentNode);
     currentNode = currentNode.previousNode;
   }
-  console.log("nodesInShortestPath",nodesInShortestPath)
   return nodesInShortestPath;
+};
+
+export const animateShortestPath = async (nodesInShortestPathOrder) => {
+  for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+    const node = nodesInShortestPathOrder[i];
+    if (!node.isWall && !node.isStart && !node.isFinish) {
+      node.shortestPath = true;
+      store.dispatch(changeNodeColorAsync(node, getNodeColor("SHORTEST") ))
+    }
+    await pause(40)
+  }
+  toggleRunning()
+};
+
+export const getNodeColor = (color) => {
+  const nodeColors = getState().nodeTypes;
+  if (color === "WALL") return nodeColors[0].WALL;
+  if (color === "VISITED") return nodeColors[1].VISITED;
+  if (color === "SHORTEST") return nodeColors[2].SHORTEST;
+  if (color === "START") return nodeColors[3].START;
+  if (color === "FINISH") return nodeColors[4].FINISH;
+  if (color === "NOCOLOR") return nodeColors[5].NOCOLOR
+};
+
+export const pause = async (speed) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, speed);
+  });
 };

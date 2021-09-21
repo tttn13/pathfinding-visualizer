@@ -1,45 +1,22 @@
 import './Node.css';
-import React , { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  selectRowCount,
-  selectColCount,
-  selectAlgo,
-  selectAlgoOptions,selectGrid
-} from "../../redux/actions/selectors";
+import React from "react";
+
 const Node = ({
   id,
   col,
   row,
-  isFinish,
-  isStart,
-  isWall,
-  isVisited,
+  type,
   onMouseDown,
   onMouseEnter,
   onMouseUp,
 }) => {
- 
-  const extraClassName = 
-    isFinish
-    ? "finish"
-    : isStart
-    ? "start"
-    : isWall
-    ? "wall"
-    : '';
-  // const extraClassName = () => {
-  //   if (isFinish) return "finish"
-  //   else if (isStart) return "start"
-  //   else if (isWall) return "wall"
-  //   else return " "
-  // }
   
-  const getNodeColor = ({ isFinish, isStart, isWall, isVisited }) => {
-    console.log("getNodeColor")
-    if (isFinish) return "finish"
-    if (isStart) return "start"
-    if (isWall) return "wall"
+  const getNodeColor = (nodeType) => {
+    if (nodeType === 0) return "wall"
+    if (nodeType === 1 ) return "visited"
+    if (nodeType === 2 ) return "shortest-path"
+    if (nodeType === 3 ) return "start"
+    if (nodeType === 4) return "finish"
     else return " "
   }
 
@@ -47,7 +24,7 @@ const Node = ({
     <td
       key={id}
       id={`node-${row}-${col}`}
-      className={`node ${extraClassName}`}
+      className={`node ${getNodeColor(type)}`}
       onMouseDown={() => onMouseDown(row, col)}
       onMouseEnter={() => onMouseEnter(row, col)}
       onMouseUp={() => onMouseUp(row, col)}

@@ -5,7 +5,7 @@ import {
   generateGrid,
   getState,
 } from "./gridUtils";
-import { clearPath, isGridClear, resetGrid } from "./boardControls";
+import { isGridClear } from "./boardControls";
 import {
   handleMouseUp,
   mouseUpAtStartNode,
@@ -20,78 +20,79 @@ import {
   mouseEnterAtFinishNode,
   mouseEnterAtCurr,
 } from "../../redux/actions/gridActions";
-
+import { changeNodeColorAsync } from '../../redux/actions/asyncActions'
+import { getNodeColor } from './createAnimations'
 /******************** Handle mouse events ********************/
 
 export const handleMouseLeaveEvent = () => {
+
   const { ROW_COUNT, COLUMN_COUNT } = getState();
-  const { isStartNode, isFinishNode, isWallNode } = getState();
-  if (isStartNode) {
+  const { currNodeisStartNode, currNodeisFinishNode, currNodeisWallNode } = getState();
+  if (currNodeisStartNode) {
     store.dispatch(mouseLeaveAtStartNode());
-  } else if (isFinishNode) {
+  } else if (currNodeisFinishNode) {
     store.dispatch(mouseLeaveAtFinishNode());
-  } else if (isWallNode) {
+  } else if (currNodeisWallNode) {
     store.dispatch(mouseLeaveAtWallNode());
     getInitialGrid(ROW_COUNT, COLUMN_COUNT);
   }
 };
 
 export const handleMouseUpEvent = (row, col) => {
-  const { isRunning, isStartNode, isFinishNode } = getState();
+
+  const { isRunning, grid, currNodeisStartNode, currNodeisFinishNode } = getState();
 
   if (!isRunning) {
     const { ROW_COUNT, COLUMN_COUNT } = getState();
     store.dispatch(handleMouseUp());
-    if (isStartNode) {
-      store.dispatch(
-        mouseUpAtStartNode({ START_NODE_ROW: row, START_NODE_COL: col })
-      );
-    } else if (isFinishNode) {
-      store.dispatch(
-        mouseUpAtFinishNode({ FINISH_NODE_ROW: row, FINISH_NODE_COL: col })
-      );
+    const releasedNode = grid[row][col]
+
+    if (currNodeisStartNode) {
+      store.dispatch(mouseUpAtStartNode({ START_NODE_ROW: row, START_NODE_COL: col }));
+      store.dispatch(changeNodeColorAsync(releasedNode, getNodeColor("START")))
+
+    } else if (currNodeisFinishNode) {
+      store.dispatch( mouseUpAtFinishNode({ FINISH_NODE_ROW: row, FINISH_NODE_COL: col }) );
+      store.dispatch(changeNodeColorAsync(releasedNode, getNodeColor("FINISH")))
+
     }
     getInitialGrid(ROW_COUNT, COLUMN_COUNT);
   }
 };
 
 export const handleMouseDownEvent = (row, col) => {
+
   const { isRunning, grid } = getState();
   if (!isRunning) {
+    
     if (isGridClear(grid)) {
-      if (
-        document.getElementById(`node-${row}-${col}`).className === "node start"
-      ) {
+      const pressedNode = grid[row][col]
+      if (pressedNode.isStart) {
         store.dispatch(mouseDownAtStartNode({ currRow: row, currCol: col }));
-      } else if (
-        document.getElementById(`node-${row}-${col}`).className ===
-        "node finish"
-      ) {
+
+      } else if (pressedNode.isFinish) {
         store.dispatch(mouseDownAtFinishNode({ currRow: row, currCol: col }));
+
       } else {
         const newGrid = getNewGridWithWallToggled(row, col);
-        store.dispatch(
-          mouseDownAtWallNode({
+        store.dispatch(mouseDownAtWallNode({
             grid: newGrid,
             currRow: row,
             currCol: col,
-          })
-        );
+          }));
       }
     }
-  } else {
-    // generateGrid(resetGrid()); 
-    generateGrid(clearPath());
-  }
+  } 
 };
 
 export const handleMouseEnterEvent = (row, col) => {
+
   const {
     isRunning,
     mouseIsPressed,
-    isWallNode,
-    isStartNode,
-    isFinishNode,
+    currNodeisWallNode,
+    currNodeisStartNode,
+    currNodeisFinishNode,
     grid,
     currRow,
     currCol,
@@ -99,42 +100,38 @@ export const handleMouseEnterEvent = (row, col) => {
 
   if (!isRunning) {
     if (mouseIsPressed) {
-      const nodeClassName = document.getElementById(
-        `node-${row}-${col}`
-      ).className;
-      if (isStartNode) {
-        if (nodeClassName !== "node wall") {
+      let enteredNode = grid[row][col]
+      
+      if (currNodeisStartNode) {
+        
+        if (enteredNode.isWall === false) {
           let prevStartNode = grid[currRow][currCol];
           prevStartNode.isStart = false;
-          document.getElementById(`node-${currRow}-${currCol}`).className =
-            "node";
+          store.dispatch(changeNodeColorAsync(prevStartNode, getNodeColor("NOCOLOR")))
           store.dispatch(mouseEnterAtCurr({ currRow: row, currCol: col }));
-
-          let currStartNode = grid[row][col];
-          currStartNode.isStart = true;
-          document.getElementById(`node-${row}-${col}`).className =
-            "node start";
+          
+          enteredNode.isStart = true;
+          store.dispatch(changeNodeColorAsync(enteredNode, getNodeColor("START")))
         }
-        store.dispatch(
-          mouseEnterAtStartNode({ START_NODE_ROW: row, START_NODE_COL: col })
-        );
-      } else if (isFinishNode) {
-        if (nodeClassName !== "node wall") {
+        store.dispatch(mouseEnterAtStartNode({ START_NODE_ROW: row, START_NODE_COL: col }));
+        store.dispatch(changeNodeColorAsync(enteredNode, getNodeColor("START")))
+
+      } else if (currNodeisFinishNode) {
+
+        if (enteredNode.isWall === false) {
           let prevFinishNode = grid[currRow][currCol];
           prevFinishNode.isFinish = false;
-          document.getElementById(`node-${currRow}-${currCol}`).className =
-            "node";
           store.dispatch(mouseEnterAtCurr({ currRow: row, currCol: col }));
+          store.dispatch(changeNodeColorAsync(prevFinishNode, getNodeColor("NOCOLOR")))
 
-          let currFinishNode = grid[row][col];
-          currFinishNode.isFinish = true;
-          document.getElementById(`node-${row}-${col}`).className =
-            "node finish";
+          enteredNode.isFinish = true;
+          store.dispatch(changeNodeColorAsync(enteredNode, getNodeColor("FINISH")))
         }
-        store.dispatch(
-          mouseEnterAtFinishNode({ FINISH_NODE_ROW: row, FINISH_NODE_COL: col })
-        );
-      } else if (isWallNode) {
+        store.dispatch( mouseEnterAtFinishNode({ FINISH_NODE_ROW: row, FINISH_NODE_COL: col }));
+        store.dispatch(changeNodeColorAsync(enteredNode, getNodeColor("FINISH")))
+
+      } else if (currNodeisWallNode) {
+
         const newGrid = getNewGridWithWallToggled(row, col);
         generateGrid(newGrid);
       }
