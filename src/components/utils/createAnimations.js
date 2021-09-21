@@ -36,8 +36,8 @@ const  animateNodesPath = async (visitedNodesInOrder, finishNode, speed) => {
     if (!(currentNode.isStart || currentNode.isFinish || currentNode.isWall)) {
       currentNode.isVisited = true;
       store.dispatch(changeNodeColorAsync(currentNode, getNodeColor("VISITED") ))
+      await pause(speed)
     }
-    await pause(speed )
   }
   await pause(100 * speed )
   finishSearching(finishNode)

@@ -43,9 +43,9 @@ const initialState = {
     { id: 4, type: "Depth First Search" },
   ],
   speedOptions: [
-    { id: 100, type: "Average" },
-    { id: 5, type: "Fast" },
-    { id: 200, type: "Slow" },
+    { id: 2, type: "Fast" },
+    { id: 30, type: "Average" },
+    { id: 50, type: "Slow" },
   ],
   nodeTypes: [
     { WALL: 0 },
