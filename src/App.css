@@ -42,6 +42,7 @@ nav {
 .navbar-toggler:focus {
   box-shadow: none;
 }
+
 .navbar-brand {
   display: flex;
   align-items: center;
@@ -55,7 +56,8 @@ nav {
 }
 
 #navbarCollapse {
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .navbar-nav {
@@ -73,12 +75,11 @@ h5 {
   font-weight: 800;
 }
 
-#tutorialBtn {
-  box-shadow: none !important;
-}
+
 
 @media screen and (max-width: 500px) {
   #buttons-container {
     flex-direction: column;
   }
 }
+

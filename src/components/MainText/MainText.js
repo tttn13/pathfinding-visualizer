@@ -2,13 +2,11 @@ import React from "react";
 import FlagSVG from "../../assets/images/FlagSVG";
 import ChevronSVG from "../../assets/images/ChevronSVG";
 import "./MainText.css";
+import { ModalBox } from "../ModalBox/ModalBoxContainer";
 
 const MainText = () => {
   return (
-    <div
-      id="mainText"
-      className=""
-    >
+    <div id="mainText" className="">
       <ul className="list-group" id="mainTextList">
         <li className="list-group-item border-0 d-flex justify-content-center align-items-center">
           <div className="start me-1">
@@ -18,7 +16,7 @@ const MainText = () => {
         </li>
         <li className="list-group-item border-0 d-flex justify-content-center align-items-center">
           <div className="target me-1">
-            <FlagSVG size={"16"}/>
+            <FlagSVG size={"16"} />
           </div>
           Target Node
         </li>
@@ -26,7 +24,8 @@ const MainText = () => {
           <div className="unvisited me-1"></div>Unvisited Node
         </li>
         <li className="list-group-item border-0 d-flex justify-content-center align-items-center">
-          <div className="visited me-1"></div><div className="visited2 me-1"></div>Visited Node
+          <div className="visited me-1"></div>
+          <div className="visited2 me-1"></div>Visited Node
         </li>
         <li className="list-group-item border-0 d-flex justify-content-center align-items-center">
           <div className="shortest-path me-1"></div>Shortest-path Node
@@ -35,6 +34,16 @@ const MainText = () => {
           <div className="wall me-1"></div>Wall Node
         </li>
       </ul>
+      <button
+        className="btn btn-outline-secondary "
+        id="tutorialBtn"
+        data-bs-toggle="modal"
+        data-bs-target="#modalToggle0"
+      >
+        Walk me through the app
+      </button>
+      <ModalBox />
+      
     </div>
   );
 };

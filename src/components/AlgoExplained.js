@@ -1,7 +1,7 @@
 
 export const AlgoExplained = ({ currentAlgo, algoOptions }) => {
     const findAlgoName = () => {
-        if (currentAlgo === null) return "Not Selected"
+        if (currentAlgo === null) return "Algorithm"
         else return algoOptions.find((algo) => algo.id === currentAlgo).type;
     }
     const findAlgo = () => {

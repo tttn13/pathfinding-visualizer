@@ -37,7 +37,7 @@ const PathFinder = () => {
     <div className="content">
       <ModalBox />
       {grid.length > 0 ? <NavBar grid={grid} /> : null}
-      <div className="mt-3 custom-collapse">
+      {/* <div className="mt-3 custom-collapse">
         <ul className="list-group collapse" id="buttons-container">
           <li className="m-2">
             <button
@@ -68,7 +68,7 @@ const PathFinder = () => {
             </button>
           </li>
         </ul>
-      </div>
+      </div> */}
       {grid.length > 0 ? <Grid grid={grid} /> : null}
       <MainText />
     </div>

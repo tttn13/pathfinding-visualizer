@@ -28,7 +28,7 @@ const initialState = {
   START_NODE_COL: 5,
   FINISH_NODE_COL: 16,
   mouseIsPressed: false,
-  ROW_COUNT: 25,
+  ROW_COUNT: 19,
   COLUMN_COUNT: 35,
   isRunning: false,
   currNodeisStartNode: false,

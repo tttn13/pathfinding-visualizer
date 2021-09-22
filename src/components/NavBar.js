@@ -1,4 +1,4 @@
-import { useSelector  } from "react-redux";
+import { useSelector } from "react-redux";
 import FlagSVG from "./../assets/images/FlagSVG";
 import AlgoMenu from "./AlgoMenu";
 import SpeedMenu from "./SpeedMenu";
@@ -8,12 +8,12 @@ import {
   selectSpeed,
   selectSpeedOptions,
 } from "../redux/actions/selectors";
-
+import { AlgoExplained } from "./AlgoExplained";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
-import { useAnimations } from './customHooks/useAnimations'
-import { useMaze } from './customHooks/useMaze';
-import { useReset } from "./customHooks/useReset"
+import { faPlay, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { useAnimations } from "./customHooks/useAnimations";
+import { useMaze } from "./customHooks/useMaze";
+import { useReset } from "./customHooks/useReset";
 import { useClearWalls } from "./customHooks/useClearWalls";
 
 const NavBar = ({ grid }) => {
@@ -23,13 +23,13 @@ const NavBar = ({ grid }) => {
   const speedOptions = useSelector(selectSpeedOptions);
   const handlePlayBtn = useAnimations();
   const { handleMazeBtn } = useMaze();
-  const { handleClearGridBtn } = useReset()
-  const { handleClearWallsBtn } = useClearWalls()
+  const { handleClearGridBtn } = useReset();
+  const { handleClearWallsBtn } = useClearWalls();
   return (
     <nav
       className="navbar navbar-expand-md navbar-dark sticky-top"
       id="navContainer"
-      style={{ backgroundColor: "#1B5E20" }}
+      style={{ backgroundColor: "#459C91" }}
     >
       <a
         className="navbar-brand mx-3"
@@ -40,7 +40,7 @@ const NavBar = ({ grid }) => {
         }}
       >
         {" "}
-        <FlagSVG color={"white"} size={"20"} />
+        <FlagSVG color={"white"} size={"25"} />
         <b style={{ padding: "10px" }}>PathFinder</b>
       </a>
 
@@ -59,18 +59,18 @@ const NavBar = ({ grid }) => {
 
       <div className="collapse navbar-collapse p-1" id="navbarCollapse">
         <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-          
-          <li className="nav-item active m-2"> 
+          <li className="nav-item active m-2">
             <button
-                type="button"
-                className="btn btn-success"
-                onClick={() => {
-                  handleMazeBtn()}
-                }>
-                Create Maze
-              </button>
+              type="button"
+              className="btn btn-success"
+              onClick={() => {
+                handleMazeBtn();
+              }}
+            >
+              Create Maze
+            </button>
           </li>
-          
+
           <li className="nav-item active m-2">
             <AlgoMenu currentAlgo={currentAlgo} algoOptions={algoOptions} />
           </li>
@@ -86,7 +86,8 @@ const NavBar = ({ grid }) => {
               onClick={() => {
                 if (currentAlgo === null || speed === null) {
                   alert("Please choose algorithm and/or speed");
-              } else handlePlayBtn(grid) }}
+                } else handlePlayBtn(grid);
+              }}
             >
               {" "}
               <FontAwesomeIcon icon={faPlay} size="lg" />
@@ -97,9 +98,7 @@ const NavBar = ({ grid }) => {
             <button
               type="button"
               className="btn btn-danger"
-              onClick={() => 
-                handleClearGridBtn(grid)
-              }
+              onClick={() => handleClearGridBtn(grid)}
             >
               Clear Grid
             </button>
@@ -109,13 +108,22 @@ const NavBar = ({ grid }) => {
             <button
               type="button"
               className="btn btn-danger"
-              onClick={() => handleClearWallsBtn(grid) }
+              onClick={() => handleClearWallsBtn(grid)}
             >
               Clear Walls
             </button>
           </li>
         </ul>
-       
+
+        <button className="btn btn-outline-secondary " id="algoExplainedBtn">
+          <b>
+            <AlgoExplained
+              currentAlgo={currentAlgo}
+              algoOptions={algoOptions}
+            /> <br></br>
+          </b>
+          explained <FontAwesomeIcon icon={faExternalLinkAlt} />
+        </button>
       </div>
     </nav>
   );

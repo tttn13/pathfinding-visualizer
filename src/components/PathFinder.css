@@ -5,14 +5,6 @@
   justify-content: center;
 }
 
-.grid {
-  white-space: pre;
-}
-
-#container {
-  display: grid;
-}
-
 button {
   margin: 2px;
 }
@@ -23,5 +15,16 @@ button {
 
 .btn-danger {
   background-color:#E65100 !important ;
+  font-weight: 600;
+}
+
+.btn-outline-secondary {
+  border: solid 2px #EEC168;
+  color: black;
+  font-weight: 600;
+}
+
+#algoExplainedBtn {
+  border: none;
 }
 
