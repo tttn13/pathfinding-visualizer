@@ -11,7 +11,7 @@ import {
 } from "../redux/actions/selectors";
 import { AlgoExplained } from "./AlgoExplained";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { useAnimations } from "./customHooks/useAnimations";
 import { useMaze } from "./customHooks/useMaze";
 import { useReset } from "./customHooks/useReset";
@@ -121,7 +121,7 @@ const NavBar = ({ grid }) => {
         </ul>
 
         <div>
-          <button className="btn btn-outline-secondary " id="algoExplainedBtn">
+          {/* <button className="btn btn-outline-secondary " id="algoExplainedBtn">
             <b>
               <AlgoExplained
                 currentAlgo={currentAlgo}
@@ -130,8 +130,11 @@ const NavBar = ({ grid }) => {
               <br></br>
             </b>
             Explained <FontAwesomeIcon icon={faExternalLinkAlt} />
-          </button>
-
+          </button> */}
+          <AlgoExplained
+                currentAlgo={currentAlgo}
+                algoOptions={algoOptions}
+              />
           <button
             className="btn btn-outline-secondary "
             id="tutorialBtn"

@@ -1,3 +1,5 @@
+import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const AlgoExplained = ({ currentAlgo, algoOptions }) => {
     const findAlgoName = () => {
@@ -10,12 +12,17 @@ export const AlgoExplained = ({ currentAlgo, algoOptions }) => {
         else if (findAlgoName() === "A*") url = "https://en.wikipedia.org/wiki/A*_search_algorithm"
         else if (findAlgoName() === "Breadth First Search") url="https://en.wikipedia.org/wiki/Breadth-first_search"
         else if (findAlgoName() === "Depth First Search") url = "https://en.wikipedia.org/wiki/Depth-first_search"
-        else url = "#"
+        else url = "https://en.wikipedia.org/wiki/Pathfinding"
         return url;
     }
     return (
-        <a href={findAlgo()} target="_blank" rel="noopener noreferrer" className="link-danger">
-            {findAlgoName()}
+        <a href={findAlgo()} 
+        target="_blank" rel="noopener noreferrer" 
+        role="button"
+        className="btn btn-outline-secondary link-danger" id="algoExplainedBtn"
+        >
+            {findAlgoName()} <br></br>Explained{" "}
+            <FontAwesomeIcon icon={faExternalLinkAlt} />
         </a>
     )
 }

@@ -22,13 +22,12 @@ button {
   font-weight: 600;
 }
 
-.btn-outline-secondary {
-  border: solid 2px #EEC168;
+#tutorialBtn {
   color: black;
-  font-weight: 600;
 }
 
 #algoExplainedBtn, #tutorialBtn {
   border: none;
+  font-weight: 600;
   box-shadow: none !important;
 }
