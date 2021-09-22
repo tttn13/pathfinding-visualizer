@@ -1,5 +1,5 @@
 import PathFinder from "./components/PathFinder";
-import "./App.css";
+import "./css/App.css";
 import Footer from "./components/Footer";
 function App() {
   return (

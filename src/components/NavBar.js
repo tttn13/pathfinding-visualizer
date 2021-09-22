@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import FlagSVG from "./../assets/images/FlagSVG";
 import AlgoMenu from "./AlgoMenu";
@@ -15,6 +16,7 @@ import { useAnimations } from "./customHooks/useAnimations";
 import { useMaze } from "./customHooks/useMaze";
 import { useReset } from "./customHooks/useReset";
 import { useClearWalls } from "./customHooks/useClearWalls";
+import { ModalBox } from "./ModalBox/ModalBoxContainer";
 
 const NavBar = ({ grid }) => {
   const currentAlgo = useSelector(selectAlgo);
@@ -25,6 +27,9 @@ const NavBar = ({ grid }) => {
   const { handleMazeBtn } = useMaze();
   const { handleClearGridBtn } = useReset();
   const { handleClearWallsBtn } = useClearWalls();
+  useEffect(() => {
+    document.querySelector('[data-bs-target="#modalToggle0"]').click();
+  }, []);
   return (
     <nav
       className="navbar navbar-expand-md navbar-dark sticky-top"
@@ -115,15 +120,29 @@ const NavBar = ({ grid }) => {
           </li>
         </ul>
 
-        <button className="btn btn-outline-secondary " id="algoExplainedBtn">
-          <b>
-            <AlgoExplained
-              currentAlgo={currentAlgo}
-              algoOptions={algoOptions}
-            /> <br></br>
-          </b>
-          explained <FontAwesomeIcon icon={faExternalLinkAlt} />
-        </button>
+        <div>
+          <button className="btn btn-outline-secondary " id="algoExplainedBtn">
+            <b>
+              <AlgoExplained
+                currentAlgo={currentAlgo}
+                algoOptions={algoOptions}
+              />{" "}
+              <br></br>
+            </b>
+            Explained <FontAwesomeIcon icon={faExternalLinkAlt} />
+          </button>
+
+          <button
+            className="btn btn-outline-secondary "
+            id="tutorialBtn"
+            data-bs-toggle="modal"
+            data-bs-target="#modalToggle0"
+          >
+            Tutorial<br></br>(PathFinder 101)
+          </button>
+          <ModalBox />
+        </div>
+
       </div>
     </nav>
   );

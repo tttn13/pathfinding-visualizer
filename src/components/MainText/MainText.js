@@ -2,7 +2,6 @@ import React from "react";
 import FlagSVG from "../../assets/images/FlagSVG";
 import ChevronSVG from "../../assets/images/ChevronSVG";
 import "./MainText.css";
-import { ModalBox } from "../ModalBox/ModalBoxContainer";
 
 const MainText = () => {
   return (
@@ -34,16 +33,6 @@ const MainText = () => {
           <div className="wall me-1"></div>Wall Node
         </li>
       </ul>
-      <button
-        className="btn btn-outline-secondary "
-        id="tutorialBtn"
-        data-bs-toggle="modal"
-        data-bs-target="#modalToggle0"
-      >
-        Walk me through the app
-      </button>
-      <ModalBox />
-      
     </div>
   );
 };
