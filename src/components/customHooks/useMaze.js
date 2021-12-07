@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { getGrid } from "../../redux/actions/gridActions";
 import {
   selectRunning,
@@ -14,25 +14,23 @@ export const useMaze = () => {
   const isRunning = useSelector(selectRunning);
   const rowCountDesktop = useSelector(selectRowCount);
   const colCountDesktop = useSelector(selectColCount);
+  const [mazeBtnIsActive, setMazeBtnActive] = useState(false);
 
-  const [mazeBtnIsClicked, setMazeBtn] = useState(false);
-
-  const handleMazeBtn = useCallback(() => {
+  const handleMazeBtn = () => {
     if (!isRunning) {
-      setMazeBtn(true);
+      setMazeBtnActive(true);
       const newGrid = createMaze(rowCountDesktop, colCountDesktop);
       dispatch(getGrid({ grid: newGrid }));
     }
-  }, [dispatch]);
+  }
 
   useEffect(() => {
-    console.log("use maze btn ");
-    if (mazeBtnIsClicked) setMazeBtn(false);
-  }, [mazeBtnIsClicked]);
+    if (mazeBtnIsActive) setMazeBtnActive(false);
+  }, [mazeBtnIsActive]);
 
   return {
-    mazeBtnIsClicked,
-    setMazeBtn,
+    mazeBtnIsActive,
+    setMazeBtnActive,
     handleMazeBtn,
   };
 };

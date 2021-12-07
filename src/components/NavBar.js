@@ -68,9 +68,7 @@ const NavBar = ({ grid }) => {
             <button
               type="button"
               className="btn btn-success"
-              onClick={() => {
-                handleMazeBtn();
-              }}
+              onClick={() => handleMazeBtn()}
             >
               Create Maze
             </button>
@@ -91,10 +89,11 @@ const NavBar = ({ grid }) => {
               onClick={() => {
                 if (currentAlgo === null || speed === null) {
                   alert("Please choose algorithm and/or speed");
-                } else handlePlayBtn(grid);
+                } else {
+                  handlePlayBtn()
+                }
               }}
             >
-              {" "}
               <FontAwesomeIcon icon={faPlay} size="lg" />
             </button>
           </li>
@@ -121,20 +120,7 @@ const NavBar = ({ grid }) => {
         </ul>
 
         <div>
-          {/* <button className="btn btn-outline-secondary " id="algoExplainedBtn">
-            <b>
-              <AlgoExplained
-                currentAlgo={currentAlgo}
-                algoOptions={algoOptions}
-              />{" "}
-              <br></br>
-            </b>
-            Explained <FontAwesomeIcon icon={faExternalLinkAlt} />
-          </button> */}
-          <AlgoExplained
-                currentAlgo={currentAlgo}
-                algoOptions={algoOptions}
-              />
+          <AlgoExplained currentAlgo={currentAlgo} algoOptions={algoOptions} />
           <button
             className="btn btn-outline-secondary "
             id="tutorialBtn"
@@ -145,7 +131,6 @@ const NavBar = ({ grid }) => {
           </button>
           <ModalBox />
         </div>
-
       </div>
     </nav>
   );

@@ -10,8 +10,6 @@ import { ModalBox } from "./ModalBox/ModalBoxContainer";
 import {
   selectRowCount,
   selectColCount,
-  selectAlgo,
-  selectAlgoOptions,
   selectGrid,
 } from "../redux/actions/selectors";
 
@@ -31,7 +29,6 @@ const PathFinder = () => {
     <div className="content">
       <ModalBox />
       {grid.length > 0 ? <NavBar grid={grid} /> : null}
-      
       {grid.length > 0 ? <Grid grid={grid} /> : null}
       <MainText />
     </div>

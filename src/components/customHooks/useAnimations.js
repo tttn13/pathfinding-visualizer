@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useCallback, useEffect } from "react";
 import { changeRunningToggle, getGrid } from "../../redux/actions/gridActions";
 import {
   selectRunning,
@@ -17,33 +16,29 @@ import { startApp } from "../utils/createAnimations";
 
 export const useAnimations = () => {
   const dispatch = useDispatch();
-  const isRunning = useSelector(selectRunning);
   const grid = useSelector(selectGrid);
   const currentAlgo = useSelector(selectAlgo);
   const speed = useSelector(selectSpeed);
+  const isRunning = useSelector(selectRunning);
   const algoOptions = useSelector(selectAlgoOptions);
   const START_NODE_ROW = useSelector(selectStartNodeRow);
   const START_NODE_COL = useSelector(selectStartNodeCol);
   const FINISH_NODE_ROW = useSelector(selectFinishNodeRow);
   const FINISH_NODE_COL = useSelector(selectFinishNodeCol);
+  const startNode = grid[START_NODE_ROW][START_NODE_COL];
+  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+  const algorithm = algoOptions.find((algo) => algo.id === currentAlgo);
 
-  const handlePlayBtn = useCallback((grid) => {
+  const handlePlayBtn = () => {
     if (!isRunning) {
-      const emptyGrid = resetGrid(grid)
-      dispatch(getGrid({grid: emptyGrid }))
+      const emptyGrid = resetGrid(grid);
+      dispatch(getGrid({ grid: emptyGrid }));
       dispatch(changeRunningToggle());
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isRunning) {
-      const startNode = grid[START_NODE_ROW][START_NODE_COL];
-      const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-      const algorithm = algoOptions.find((algo) => algo.id === currentAlgo);
-      const gridClone = [...grid]
+      const gridClone = [...grid];
+      console.log("start the app");
       startApp(gridClone, algorithm, startNode, finishNode, speed);
     }
-  }, [isRunning]);
+  };
 
   return handlePlayBtn;
 };

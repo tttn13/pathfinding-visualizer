@@ -4,54 +4,54 @@ import {
   handleMouseDownEvent,
   handleMouseEnterEvent,
 } from "./utils/mouseHandlers";
-import Node from './Node/Node'
+import Node from "./Node/Node";
 
 const Grid = ({ grid }) => {
-
   const addRow = ({ row, rowIdx }) => {
     return (
-        <tr key={rowIdx}>
-            {row.map((node, nodeIdx) => {
-                const { id, col, row, type } = node
-                return (<Node 
-                    id={id}
-                    col={col}
-                    row={row}
-                    type={type}
-                    onMouseDown={handleMouseDownEvent}
-                    onMouseEnter={handleMouseEnterEvent}
-                    onMouseUp={handleMouseUpEvent} />)
-            })}
-        </tr>
-    )
-}
+      <tr key={rowIdx}>
+        {row.map((node, nodeIdx) => {
+          const { id, col, row, type } = node;
+          return (
+            <Node
+              key={id}
+              id={id}
+              col={col}
+              row={row}
+              type={type}
+              onMouseDown={handleMouseDownEvent}
+              onMouseEnter={handleMouseEnterEvent}
+              onMouseUp={handleMouseUpEvent}
+            />
+          );
+        })}
+      </tr>
+    );
+  };
 
-const renderTable = (aGrid) => {
+  const renderTable = (aGrid) => {
     const gridClone = JSON.parse(JSON.stringify(aGrid));
     return (
-        <table 
+      <table
         className="grid-container table-responsive"
-        onMouseLeave={() => handleMouseLeaveEvent()} >
-            <thead> </thead>
-            <tbody>
-                {gridClone.map((row, rowIdx) => {
-                    return addRow({row, rowIdx})
-                    })
-                }
-            </tbody>
-        </table>
-      )
-}
+        onMouseLeave={() => handleMouseLeaveEvent()}
+      >
+        <tbody>
+          {gridClone.map((row, rowIdx) => {
+            return addRow({ row, rowIdx });
+          })}
+        </tbody>
+      </table>
+    );
+  };
 
-return (
+  return (
     <>
-        {grid.length > 0 ? (
-            <div className="container">
-                {renderTable(grid)} 
-            </div>
-        ) : null }
+      {grid.length > 0 ? (
+        <div className="container">{renderTable(grid)}</div>
+      ) : null}
     </>
-)
+  );
 };
 
 export default Grid;
