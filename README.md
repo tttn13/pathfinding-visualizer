@@ -6,8 +6,6 @@ PathFinder is an interactive application that helps you visualize and understand
 
 ## Screenshots
 
-![mainpage](https://github.com/tttn13/pathfinding-visualizer/blob/main/public/assets/mainpage.png)
-
 ![playdemo](https://github.com/tttn13/pathfinding-visualizer/blob/main/public/assets/playreset.gif)
 
 ## Tech Stack
