@@ -1,10 +1,10 @@
 # PathFinder
 
-### [Live Demo](https://tttn13.github.io/pathfinding-visualizer/)
+### [Live App](https://tttn13.github.io/pathfinding-visualizer/)
 
 PathFinder is an interactive application that helps you visualize and understand the most popular pathfinding algorithms in action. Pathfinding Algorithm is the plotting of the shortest route between two points. At its core, a pathfinding method searches a graph by starting at one vertex and exploring adjacent nodes until the destination node is reached, generally with the intent of finding the cheapest route. Click [here](https://tttn13.github.io/pathfinding-visualizer/) to play the app .
 
-## Screenshots
+## Demo
 
 ![playdemo](https://github.com/tttn13/pathfinding-visualizer/blob/main/public/assets/playreset.gif)
 
